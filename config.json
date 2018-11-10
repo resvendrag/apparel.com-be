@@ -1,0 +1,4 @@
+{
+    "connectionString": "mongodb://localhost/ebusiness",
+    "secret": "veradeni"
+}
