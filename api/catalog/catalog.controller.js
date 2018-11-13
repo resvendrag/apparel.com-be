@@ -18,14 +18,14 @@ function createProduct(req, res, next) {
 }
 
 function getByBatch(req, res, next) {
-    catalogService.getAll(req.params.pageNo, req.params.pageSize)
-        .then(users => res.json(users))
+    catalogService.getAll(req.query.pageNo, req.query.pageSize, req.query.query, req.query.category)
+        .then(products => res.json(products))
         .catch(err => next(err));
 }
 
 function getById(req, res, next) {
     catalogService.getById(req.params.id)
-        .then(user => user ? res.json(user) : res.sendStatus(404))
+        .then(product => product ? res.json(product) : res.sendStatus(404))
         .catch(err => next(err));
 }
 

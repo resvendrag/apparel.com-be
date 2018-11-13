@@ -6,5 +6,7 @@ mongoose.Promise = global.Promise;
 module.exports = {
     User: require('../api/users/user.model'),
     Product: require('../api/catalog/catalog.model'),
-    Counter: require('../api/catalog/counter.model')
+    Counter: require('../api/catalog/counter.model'),
+    Order: require('../api/orders/order.model'),
+    Cart: require('../api/cart/cart.model')
 };

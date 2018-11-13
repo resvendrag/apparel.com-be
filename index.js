@@ -16,6 +16,8 @@ app.use(cors());
 // api routes
 app.use('/users', require('./api/users/user.controller'));
 app.use('/catalog', require('./api/catalog/catalog.controller'));
+app.use('/order', require('./api/orders/order.controller'));
+app.use('/cart', require('./api/cart/cart.controller'));
 
 // global error handler
 app.use(errorHandler);

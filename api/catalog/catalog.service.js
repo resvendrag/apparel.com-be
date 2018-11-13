@@ -10,12 +10,21 @@ module.exports = {
     delete: _delete
 };
 
-async function getAll(pageNo, pageSize) {
-    return await Product.find({ skip: pageNo, limit: pageSize }).select('-hash');
+async function getAll(pageNo, pageSize, query, category) {
+    if (category !== "") {
+        return await Product.find({ category : category})
+        .skip(parseInt(pageNo)).limit(parseInt(pageSize));
+    }
+    if ((!query || query === "") && (category == "")) {
+        return await Product.find().skip(parseInt(pageNo)).limit(parseInt(pageSize));
+    } else if (query) {
+        return await Product.find({ name : { "$regex": query}})
+        .skip(parseInt(pageNo)).limit(parseInt(pageSize));
+    }
 }
 
 async function getById(id) {
-    return await Product.findById(id).select('-hash');
+    return await Product.findById(id);
 }
 
 async function create(product) {
@@ -26,7 +35,7 @@ async function create(product) {
 
     const newProduct = new Product(product);
     const count = await counter.findByIdAndUpdate(
-        { field: 'id'}, {$inc: { count: 1} }, function(error, counter)   {
+        { field: 'productid'}, {$inc: { count: 1} }, function(error, counter)   {
         if(error)
             return next(error);
         doc.testvalue = counter.seq;
